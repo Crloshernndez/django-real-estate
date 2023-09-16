@@ -37,6 +37,8 @@ PROJECT_APPS = [
     'apps.users',
     'apps.profiles',
     'apps.ratings',
+    'apps.properties',
+    'apps.enquires',
 ]
 
 THIRD_PARTY_APPS = [
