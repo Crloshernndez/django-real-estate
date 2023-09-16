@@ -43,7 +43,9 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_filters',
     'django_countries',
-    'phonenumber_field'
+    'phonenumber_field',
+    'djoser',
+    'rest_framework_simplejwt',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -127,6 +129,47 @@ MEDIA_ROOT = BASE_DIR / "mediafiles"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "users.User"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('Bearer', 'JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120), 
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True, 
+    'BLACKLIST_AFTER_ROTATION': True, 
+    'AUTH_TOKEN_CLASSES': ( 
+      'rest_framework_simplejwt.tokens.AccessToken',
+    )
+}
+
+DJOSER = {
+    'LOGIN_FIELD' : 'email', # Name of a field in User model to be used as login field
+    'USER_CREATE_PASSWORD_RETYPE': True, # If True, you need to pass re_password to /users/ endpoint, to validate password equality
+    'USERNAME_CHANGED_EMAIL_CONFIRMATION': True, # If True, change username endpoints will send confirmation email to user.
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True, # If True, change password endpoints will send confirmation email to user.
+    'SEND_CONFIRMATION_EMAIL': True, # If True, register or activation endpoint will send confirmation email to user.
+    'SEND_ACTIVATION_EMAIL': True, # If True user will be required to click activation link sent in email after: creating an account , updating their email
+    'SET_PASSWORD_RETYPE': True, # If True, you need to pass re_new_password to /users/set_password/ endpoint, to validate password equality.
+    'SET_USERNAME_RETYPE': True, # If True, you need to pass re_new_username to /users/set_username/ endpoint, to validate username equality.
+    'PASSWORD_RESET_CONFIRM_RETYPE': True, # If True, you need to pass re_new_password to /users/reset_password_confirm/ endpoint in order to validate password equality.
+    'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy', # String path to class responsible for token strategy used by social authentication. 
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS': {
+            'user_create' : 'apps.users.serializers.CreateUserSerializer',
+            'user'        : 'apps.users.serializers.UserSerializer',
+            'current_user': 'apps.users.serializers.UserSerializer',
+            'user_delete' : 'djoser.serializers.UserDeleteSerializer',},
+}
 
 # LOGS
 import logging
