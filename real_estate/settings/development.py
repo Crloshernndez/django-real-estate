@@ -7,6 +7,7 @@ EMAIL_PORT          = 587
 EMAIL_HOST_USER     = env('USER_EMAIL_HOST')
 EMAIL_HOST_PASSWORD = env('USER_EMAIL_PASSWORD')
 EMAIL_USE_TLS       = True
+DEFAULT_FROM_EMAIL = "info@real-estate.com"
 
 # Database
 DATABASES = {
