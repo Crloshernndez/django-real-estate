@@ -1,5 +1,9 @@
+import React from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import About from "../../components/home/About";
+import Banner from "../../components/home/Banner";
+import Faqs from "../../components/home/Faqs";
+import Options from "../../components/home/Options";
 
 const Home = () => {
   useEffect(() => {
@@ -8,7 +12,12 @@ const Home = () => {
 
   return (
     <>
-      <div className="container">Hola</div>
+      <div className="container">
+        <Banner />
+        <About />
+        <Options />
+        <Faqs />
+      </div>
     </>
   );
 };
