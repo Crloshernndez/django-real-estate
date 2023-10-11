@@ -4,10 +4,11 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 
-import store from "./store";
+import { store } from "./store";
 import Error404 from "./containers/error/Error404";
 import Home from "./containers/pages/Home";
 import PropertyListPage from "./containers/pages/PropertyListPage";
+import About from "./containers/pages/About";
 import Layout from "./hocs/Layout";
 
 function App() {
@@ -21,6 +22,9 @@ function App() {
 
             {/* Home Display */}
             <Route exact path="/" element={<Home />} />
+
+            {/* About Display */}
+            <Route exact path="/about" element={<About />} />
 
             {/* Properties Display */}
             <Route exact path="/properties" element={<PropertyListPage />} />

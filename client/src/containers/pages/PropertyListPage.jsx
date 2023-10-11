@@ -1,46 +1,46 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listProperties } from "./../../redux/actions/properties/propertyActions";
-import Spinner from "../../common/Spinner?";
+import { Col, Container, Row } from "react-bootstrap";
+import Property from "../../components/properties/Property";
+import Spinner from "../../common/Spinner";
+import { getProperties, reset } from "../../features/properties/propertySlice";
 
 const PropertyListPage = () => {
-  const { loading, error, properties } = useSelector(
-    (state) => state.propertiesList
+  const { properties, isLoading, isSuccess } = useSelector(
+    (state) => state.properties
   );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    dispatch(listProperties());
-  }, []);
+    dispatch(getProperties());
+  }, [dispatch]);
+  console.log(properties.results);
+  if (isLoading || !isSuccess) {
+    return <Spinner />;
+  }
 
   return (
     <>
-      <div className="container">
-        {loading ? (
-          <div>
-            <Spinner />
-          </div>
-        ) : error ? (
-          <div>
-            <p>{error}</p>
-          </div>
-        ) : (
-          <div className="row">
-            {properties.map((property) => (
-              <div className="col-md-4" key={property._id}>
-                <div className="card">
-                  <div className="card-body">
-                    <h5 className="card-title">{property.title}</h5>
-                    <p className="card-text">{property.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      <Container>
+        <Row>
+          <Col className="mg-top text-center">
+            <h1>Our Catalog of properties</h1>
+            <hr className="hr-text" />
+          </Col>
+        </Row>
+        {
+          <>
+            <Row className="mt-3">
+              {properties.results.map((property) => (
+                <Col key={property.id} sm={12} md={6} lg={4} xl={3}>
+                  <Property property={property} />
+                </Col>
+              ))}
+            </Row>
+          </>
+        }
+      </Container>
     </>
   );
 };

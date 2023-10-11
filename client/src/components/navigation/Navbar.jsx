@@ -1,76 +1,49 @@
-import React, { Fragment } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { FaSignInAlt } from "react-icons/fa";
+import { GiHouse } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 
-const Navbar = () => {
-  const guestLinks = (
-    <Fragment>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/login">
-          Login
-        </NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/register">
-          Register
-        </NavLink>
-      </li>
-    </Fragment>
-  );
+const Header = () => {
+  const navigate = useNavigate();
 
   return (
-    <>
-      <div className="container">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="container-fluid">
-            <Link className="navbar-brand" to="/">
-              Real Estate
-            </Link>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
-              <ul className="navbar-nav">
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/">
-                    Home
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/about">
-                    About
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/options">
-                    Options
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/faq">
-                    FAQ
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/properties">
-                    Properties
-                  </NavLink>
-                </li>
-                {guestLinks}
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </>
+    <header>
+      <Navbar fixed="top" bg="dark" variant="dark" expand="lg" collapseOnSelect>
+        <Container>
+          <LinkContainer to="/">
+            <Navbar.Brand>
+              <GiHouse className="nav-icon" /> Real Estate
+            </Navbar.Brand>
+          </LinkContainer>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            className="justify-content-end"
+          >
+            <Nav className="ml-auto">
+              <LinkContainer to="/">
+                <Nav.Link>Home</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/about">
+                <Nav.Link>About</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/properties">
+                <Nav.Link>Properties</Nav.Link>
+              </LinkContainer>
+
+              <LinkContainer to="/login">
+                <Nav.Link>
+                  <FaSignInAlt /> Login
+                </Nav.Link>
+              </LinkContainer>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </header>
   );
 };
 
-export default Navbar;
+export default Header;
