@@ -1,12 +1,23 @@
 import React from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { FaSignInAlt } from "react-icons/fa";
+import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { GiHouse } from "react-icons/gi";
-import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout, reset } from "../../features/auth/authSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+
+  const logouthandler = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
 
   return (
     <header>
@@ -32,12 +43,26 @@ const Header = () => {
               <LinkContainer to="/properties">
                 <Nav.Link>Properties</Nav.Link>
               </LinkContainer>
+              {user ? (
+                <NavDropdown
+                  title={user.firstName ? user.firstName : "Welcome"}
+                  id="username"
+                >
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
 
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <FaSignInAlt /> Login
-                </Nav.Link>
-              </LinkContainer>
+                  <NavDropdown.Item onClick={logouthandler}>
+                    <FaSignOutAlt /> Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to="/login">
+                  <Nav.Link>
+                    <FaSignInAlt /> Login
+                  </Nav.Link>
+                </LinkContainer>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

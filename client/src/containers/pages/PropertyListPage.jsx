@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row } from "react-bootstrap";
 import Property from "../../components/properties/Property";
 import Spinner from "../../common/Spinner";
-import { getProperties, reset } from "../../features/properties/propertySlice";
+import { getProperties } from "../../features/properties/propertySlice";
 
 const PropertyListPage = () => {
   const { properties, isLoading, isSuccess } = useSelector(
@@ -15,7 +15,7 @@ const PropertyListPage = () => {
   useEffect(() => {
     dispatch(getProperties());
   }, [dispatch]);
-  console.log(properties.results);
+
   if (isLoading || !isSuccess) {
     return <Spinner />;
   }
@@ -32,7 +32,7 @@ const PropertyListPage = () => {
         {
           <>
             <Row className="mt-3">
-              {properties.results.map((property) => (
+              {properties.map((property) => (
                 <Col key={property.id} sm={12} md={6} lg={4} xl={3}>
                   <Property property={property} />
                 </Col>

@@ -10,6 +10,7 @@ import Home from "./containers/pages/Home";
 import PropertyListPage from "./containers/pages/PropertyListPage";
 import About from "./containers/pages/About";
 import Layout from "./hocs/Layout";
+import Login from "./containers/pages/Login";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
 
             {/* About Display */}
             <Route exact path="/about" element={<About />} />
+
+            {/* Login Display */}
+            <Route exact path="/login" element={<Login />} />
 
             {/* Properties Display */}
             <Route exact path="/properties" element={<PropertyListPage />} />
