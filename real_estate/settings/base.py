@@ -155,22 +155,15 @@ SIMPLE_JWT = {
 }
 
 DJOSER = {
-    'LOGIN_FIELD': 'email',  # Name of a field in User model to be used as login field
-    'USER_CREATE_PASSWORD_RETYPE': True,  # If True, you need to pass re_password to /users/ endpoint, to validate password equality
-    # If True, change username endpoints will send confirmation email to user.
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
-    # If True, change password endpoints will send confirmation email to user.
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
-    'SEND_CONFIRMATION_EMAIL': True,  # If True, register or activation endpoint will send confirmation email to user.
-    # If True user will be required to click activation link sent in email after: creating an account , updating their email
+    'SEND_CONFIRMATION_EMAIL': True,
     'SEND_ACTIVATION_EMAIL': True,
-    # If True, you need to pass re_new_password to /users/set_password/ endpoint, to validate password equality.
     'SET_PASSWORD_RETYPE': True,
-    # If True, you need to pass re_new_username to /users/set_username/ endpoint, to validate username equality.
     'SET_USERNAME_RETYPE': True,
-    # If True, you need to pass re_new_password to /users/reset_password_confirm/ endpoint in order to validate password equality.
     'PASSWORD_RESET_CONFIRM_RETYPE': True,
-    # String path to class responsible for token strategy used by social authentication.
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',

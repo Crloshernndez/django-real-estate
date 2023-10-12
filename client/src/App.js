@@ -11,6 +11,8 @@ import PropertyListPage from "./containers/pages/PropertyListPage";
 import About from "./containers/pages/About";
 import Layout from "./hocs/Layout";
 import Login from "./containers/pages/Login";
+import Register from "./containers/pages/Register";
+import Activate from "./containers/pages/Activate";
 
 function App() {
   return (
@@ -29,6 +31,12 @@ function App() {
 
             {/* Login Display */}
             <Route exact path="/login" element={<Login />} />
+
+            {/* Register Display */}
+            <Route exact path="/register" element={<Register />} />
+
+            {/* Activate Display */}
+            <Route exact path="/activate/:uid/:token" element={<Activate />} />
 
             {/* Properties Display */}
             <Route exact path="/properties" element={<PropertyListPage />} />
